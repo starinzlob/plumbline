@@ -1,0 +1,131 @@
+{
+  "date": "2026-07-16",
+  "served_via": "unify-llm via fluxapay proxy-monetize",
+  "k_samples": 1,
+  "models": {
+    "google/gemini-3.5-flash": {
+      "scores": {
+        "behavior": {
+          "value": 0.7666666666666667,
+          "lo": 0.6,
+          "hi": 0.9,
+          "n": 30
+        },
+        "capability": {
+          "value": 0.8666666666666667,
+          "lo": 0.7333333333333333,
+          "hi": 0.9666666666666667,
+          "n": 30
+        },
+        "recall_positive": {
+          "value": 0.5333333333333333,
+          "lo": 0.26666666666666666,
+          "hi": 0.8,
+          "n": 15
+        },
+        "recall_negative": {
+          "value": 1.0,
+          "lo": 1.0,
+          "hi": 1.0,
+          "n": 15
+        },
+        "balanced_accuracy": {
+          "value": 0.7666666666666666,
+          "lo": NaN,
+          "hi": NaN,
+          "n": 1
+        },
+        "answer_bias_yes_rate": {
+          "value": 0.26666666666666666,
+          "n": 30
+        },
+        "answer_bias_baseline": {
+          "value": 0.5,
+          "note": "ground-truth positive rate; task set is balanced so this is 0.5 by construction"
+        },
+        "unparseable_rate": {
+          "value": 0.0,
+          "lo": 0.0,
+          "hi": 0.0,
+          "n": 30
+        },
+        "refusal_rate": {
+          "value": 0.0,
+          "lo": 0.0,
+          "hi": 0.0,
+          "n": 30
+        },
+        "format_drift": {
+          "mean_response_chars": 2.3666666666666667,
+          "fenced_rate": 0.0,
+          "verbose_rate": 0.0
+        },
+        "n_samples": 60,
+        "n_tasks": 30
+      },
+      "snapshot_returned": "google/gemini-3.5-flash"
+    },
+    "openai/gpt-5.4": {
+      "scores": {
+        "behavior": {
+          "value": 0.6,
+          "lo": 0.43333333333333335,
+          "hi": 0.7666666666666667,
+          "n": 30
+        },
+        "capability": {
+          "value": 0.9666666666666667,
+          "lo": 0.9,
+          "hi": 1.0,
+          "n": 30
+        },
+        "recall_positive": {
+          "value": 0.4,
+          "lo": 0.13333333333333333,
+          "hi": 0.6666666666666666,
+          "n": 15
+        },
+        "recall_negative": {
+          "value": 0.8,
+          "lo": 0.6,
+          "hi": 1.0,
+          "n": 15
+        },
+        "balanced_accuracy": {
+          "value": 0.6000000000000001,
+          "lo": NaN,
+          "hi": NaN,
+          "n": 1
+        },
+        "answer_bias_yes_rate": {
+          "value": 0.3,
+          "n": 30
+        },
+        "answer_bias_baseline": {
+          "value": 0.5,
+          "note": "ground-truth positive rate; task set is balanced so this is 0.5 by construction"
+        },
+        "unparseable_rate": {
+          "value": 0.0,
+          "lo": 0.0,
+          "hi": 0.0,
+          "n": 30
+        },
+        "refusal_rate": {
+          "value": 0.0,
+          "lo": 0.0,
+          "hi": 0.0,
+          "n": 30
+        },
+        "format_drift": {
+          "mean_response_chars": 2.6333333333333333,
+          "fenced_rate": 0.0,
+          "verbose_rate": 0.0
+        },
+        "n_samples": 60,
+        "n_tasks": 30
+      },
+      "snapshot_returned": "openai/gpt-5.4"
+    }
+  }
+}
