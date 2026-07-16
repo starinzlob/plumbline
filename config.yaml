@@ -1,0 +1,52 @@
+# Frozen run configuration. Every value here is logged into each run's manifest.
+# Changing a sampling parameter is a methodology change (Rule 0): it lands in
+# CHANGELOG-METHOD.md and triggers a re-score. Do not tune these to chase a result.
+
+endpoint: "https://proxy-monetize.fluxapay.xyz/llm/unify-llm/v1/chat/completions"
+
+# IMPORTANT: this is a PROXY endpoint (Unify via FluxA), not direct vendor APIs.
+# We measure models as served through this proxy. Routing, caching, or
+# quantization introduced by the proxy is invisible to us and is attributed to
+# nothing — see METHODOLOGY.md § "The proxy caveat". Every result is stamped
+# "as served through Unify on <date>".
+served_via: "unify-llm via fluxapay proxy-monetize"
+
+# We REQUEST floating aliases (what a user types) and RECORD the dated snapshot
+# the proxy returns. Alias -> snapshot changes are a first-class finding.
+models:
+  - alias: "anthropic/claude-opus-4.6"
+    vendor: anthropic
+  - alias: "anthropic/claude-sonnet-4.6"
+    vendor: anthropic
+  - alias: "openai/gpt-5.5"
+    vendor: openai
+  - alias: "openai/gpt-5.4"
+    vendor: openai
+  - alias: "google/gemini-3.1-pro-preview"
+    vendor: google
+  - alias: "google/gemini-3.5-flash"
+    vendor: google
+  # Reference axis only — not a frontier model, never headlined, kept because it
+  # is cheap and a non-frontier baseline is useful context.
+  - alias: "deepseek-v4"
+    vendor: deepseek
+    role: reference
+
+# Pinned sampling. temperature 0 does NOT make the API deterministic; k samples
+# capture the residual nondeterminism, which is exactly the noise floor Rule 7
+# needs to separate signal from.
+sampling:
+  temperature: 0
+  top_p: 1
+  max_tokens: 1024   # enough for the step-by-step paraphrase to conclude
+  k_samples: 5
+  timeout_s: 60
+  request_seed: 20260715  # sent when the vendor honours it; logged either way
+
+tasks:
+  - tasks/primality.jsonl
+
+# Weekly, not daily. Drift happens on the scale of months; daily cadence buys no
+# resolution and burns 7x the balance. 7 models x 30 tasks x 3 paraphrases x 5
+# samples = 3150 calls per run.
+cadence: weekly

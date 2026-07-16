@@ -113,6 +113,36 @@ pre-registered here, the graders are deterministic and unit-tested, and every ra
 response is in git so that anyone who distrusts the authorship can re-score the whole
 history themselves without our cooperation. Please do.
 
+## The proxy caveat
+
+The models are reached through a single OpenAI-compatible proxy (Unify, via the
+FluxA `proxy-monetize` endpoint), not through each vendor's own API. This is a
+deliberate, disclosed trade-off.
+
+**Why it's acceptable:** one key reaches all vendors under identical transport, and
+routing through a proxy is how a large and growing share of people actually consume
+these models (OpenRouter and friends). Measuring the proxy-served model measures
+something real.
+
+**What it costs us:** any routing, caching, quantization, or A/B split the proxy
+introduces is invisible and gets attributed to nothing. A drop we observe could be
+the vendor's or the proxy's, and this benchmark cannot separate them — consistent
+with the existing limit that we cannot see inside any API.
+
+**Mitigations, in order of what's built:**
+
+1. Every result is stamped **"as served through Unify on `<date>`"**. We never claim
+   to measure a vendor's direct API.
+2. We request floating aliases and **record the exact snapshot string returned**
+   (e.g. request `anthropic/claude-sonnet-4.6`, log
+   `anthropic/claude-4.6-sonnet-20260217`). An alias→snapshot change is published as
+   its own finding: *the name you type started pointing at different weights.* This
+   is one of the most concrete forms of the "they swapped my model" complaint, and
+   almost nobody is recording it.
+3. **Planned, not yet built:** periodically cross-check one model direct-vs-proxy to
+   bound the proxy's own contribution. Until that exists, the caveat stands at full
+   strength and every chart carries it.
+
 ## Rule 0 — amendments
 
 Task sets and graders may be **added to**, but a frozen task is never edited or deleted;
