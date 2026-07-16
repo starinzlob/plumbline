@@ -26,11 +26,33 @@ models:
     vendor: google
   - alias: "google/gemini-3.5-flash"
     vendor: google
-  # Reference axis only — not a frontier model, never headlined, kept because it
-  # is cheap and a non-frontier baseline is useful context.
-  - alias: "deepseek-v4"
+  # Open-weight tier. Far cheaper per output token (20k–300k units/1M vs
+  # 1.5M–3M for the frontier tier), so this is where a statistically-powered
+  # run with real confidence intervals is actually affordable — the rigorous
+  # core of the drift benchmark. All are reasoning models; max_tokens is raised
+  # to 2048 so their `content` is not starved (CHANGELOG 2026-07-16b).
+  - alias: "deepseek-v4-flash"
     vendor: deepseek
-    role: reference
+  - alias: "deepseek-v3.2"
+    vendor: deepseek
+  - alias: "deepseek-v3.2-think"
+    vendor: deepseek
+  - alias: "minimax-m2.5"
+    vendor: minimax
+  - alias: "kimi-k2.5"
+    vendor: moonshot
+  - alias: "glm-5"
+    vendor: zhipu
+  - alias: "deepseek-v4-pro"
+    vendor: deepseek
+  - alias: "kimi-k2.6"
+    vendor: moonshot
+  - alias: "glm-5.2"
+    vendor: zhipu
+  - alias: "glm-5.1"
+    vendor: zhipu
+  - alias: "ernie-5.0-thinking-preview"
+    vendor: baidu
 
 # Pinned sampling. temperature 0 does NOT make the API deterministic; k samples
 # capture the residual nondeterminism, which is exactly the noise floor Rule 7
@@ -38,7 +60,9 @@ models:
 sampling:
   temperature: 0
   top_p: 1
-  max_tokens: 1024   # enough for the step-by-step paraphrase to conclude
+  max_tokens: 2048   # headroom so reasoning models don't starve `content` to empty
+                     # (see CHANGELOG-METHOD 2026-07-16b); 1024 left some open-weight
+                     # reasoning models emitting reasoning_content but no answer
   k_samples: 5
   timeout_s: 60
   request_seed: 20260715  # sent when the vendor honours it; logged either way

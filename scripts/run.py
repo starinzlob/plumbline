@@ -43,6 +43,8 @@ def main() -> None:
     ap.add_argument("--models", default="", help="comma-separated aliases; default = all in config")
     ap.add_argument("--paraphrases", default="0,1")
     ap.add_argument("--k", type=int, default=1)
+    ap.add_argument("--balance-floor", type=int, default=300,
+                    help="stop cleanly once x-llm-balance drops below this")
     args = ap.parse_args()
 
     cfg = yaml.safe_load((REPO / "config.yaml").read_text())
@@ -107,9 +109,11 @@ def main() -> None:
                             _summarise(run_dir); return
                         continue
                     g = grade_primality(expected, r.text)
-                    cost = r.raw_meta.get("cost_headers", {}).get("x-llm-cost-credits")
+                    ch = r.raw_meta.get("cost_headers", {})
+                    cost = ch.get("x-llm-cost-credits")
                     if cost:
                         spent_estimate += int(cost)
+                    bal = ch.get("x-llm-balance")
                     rec = {
                         "ok": True,
                         "task": t["id"],
@@ -120,6 +124,9 @@ def main() -> None:
                         "expected": expected,
                         "task_class": t["meta"]["class"],
                         "response": r.text,
+                        "reasoning_content": r.reasoning,
+                        "content_starved": r.content_starved,
+                        "finish_reason": r.raw_meta.get("finish_reason"),
                         "verdict": g.verdict.value,
                         "extracted": g.extracted,
                         "format_flags": g.format_flags,
@@ -134,7 +141,13 @@ def main() -> None:
                         n_wrong += 1
                     else:
                         n_unparse += 1
-                    time.sleep(1.2)
+                    # Balance-floor stop: safer than waiting for a 402, and keeps
+                    # a small residual so we never leave the wallet at exactly 0
+                    # mid-call. All data collected so far is already on disk.
+                    if bal is not None and int(bal) < args.balance_floor:
+                        print(f"  balance {bal} < floor {args.balance_floor} — stopping cleanly")
+                        _summarise(run_dir); return
+                    time.sleep(1.0)
         graded = n_ok + n_wrong
         acc = f"{n_ok/graded:.1%}" if graded else "n/a"
         print(f"  correct={n_ok} wrong={n_wrong} unparseable={n_unparse} errors={n_err}  acc(graded)={acc}")

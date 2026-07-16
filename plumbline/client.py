@@ -50,12 +50,19 @@ def load_key() -> str:
 @dataclass
 class Response:
     ok: bool
-    text: str
+    text: str            # the message `content` — what a user actually sees
     model_returned: str  # the exact snapshot string the proxy answered with
     latency_ms: int
     usage: dict
     raw_meta: dict       # status, any cost headers, error detail — for auditing
     error: str = ""
+    reasoning: str = ""  # message.reasoning_content, if the model exposes it
+    # True when the model burned its whole token budget on reasoning and emitted
+    # NO visible content. This looks identical to a refusal at the content layer
+    # but is an entirely different thing (a max_tokens starvation artifact), and
+    # conflating them would manufacture a fake refusal-rate spike — i.e. fake
+    # drift. Tracked separately so the grader never mistakes one for the other.
+    content_starved: bool = False
 
 
 def call(
@@ -106,7 +113,15 @@ def call(
                     if any(t in h.lower() for t in ("cost", "unit", "credit", "price", "balance", "usage"))
                 }
                 choice = (payload.get("choices") or [{}])[0]
-                text = (choice.get("message") or {}).get("content") or ""
+                msg = choice.get("message") or {}
+                text = msg.get("content") or ""
+                reasoning = msg.get("reasoning_content") or msg.get("reasoning") or ""
+                finish = choice.get("finish_reason")
+                # Content empty but reasoning present and the model hit the token
+                # ceiling: it thought until it ran out of room and never answered.
+                # A raised max_tokens fixes it; flagging it keeps a real refusal
+                # (empty content, empty reasoning, finish 'stop') distinguishable.
+                starved = (not text.strip()) and bool(reasoning) and finish == "length"
                 return Response(
                     ok=True,
                     text=text,
@@ -116,9 +131,11 @@ def call(
                     raw_meta={
                         "status": 200,
                         "cost_headers": cost_headers,
-                        "finish_reason": choice.get("finish_reason"),
+                        "finish_reason": finish,
                         "id": payload.get("id"),
                     },
+                    reasoning=reasoning,
+                    content_starved=starved,
                 )
         except urllib.error.HTTPError as e:
             detail = e.read().decode()[:500] if e.fp else ""
