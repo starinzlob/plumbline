@@ -24,7 +24,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import yaml  # noqa: E402
 
 from plumbline.client import call, load_key  # noqa: E402
-from plumbline.graders import grade_primality  # noqa: E402
+from plumbline.graders import Verdict, grade_primality  # noqa: E402
 
 REPO = Path(__file__).resolve().parents[1]
 
@@ -109,6 +109,17 @@ def main() -> None:
                             _summarise(run_dir); return
                         continue
                     g = grade_primality(expected, r.text)
+                    extraction_source = "content"
+                    # Reasoning-model fallback: if the visible content yields no
+                    # answer but the model's reasoning_content concluded one, use
+                    # that — the ability is demonstrably present (relevant to
+                    # capability). Recorded as source="reasoning" so scoring can
+                    # keep behavior (user-visible content) separate if it wants.
+                    if g.verdict == Verdict.UNPARSEABLE and r.reasoning:
+                        g2 = grade_primality(expected, r.reasoning)
+                        if g2.verdict != Verdict.UNPARSEABLE:
+                            g = g2
+                            extraction_source = "reasoning"
                     ch = r.raw_meta.get("cost_headers", {})
                     cost = ch.get("x-llm-cost-credits")
                     if cost:
@@ -129,6 +140,7 @@ def main() -> None:
                         "finish_reason": r.raw_meta.get("finish_reason"),
                         "verdict": g.verdict.value,
                         "extracted": g.extracted,
+                        "extraction_source": extraction_source,
                         "format_flags": g.format_flags,
                         "usage": r.usage,
                         "cost_credits": cost,

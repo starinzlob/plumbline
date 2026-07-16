@@ -60,7 +60,7 @@ models:
 sampling:
   temperature: 0
   top_p: 1
-  max_tokens: 2048   # headroom so reasoning models don't starve `content` to empty
+  max_tokens: 4096   # headroom so reasoning models don't starve `content` to empty
                      # (see CHANGELOG-METHOD 2026-07-16b); 1024 left some open-weight
                      # reasoning models emitting reasoning_content but no answer
   k_samples: 5

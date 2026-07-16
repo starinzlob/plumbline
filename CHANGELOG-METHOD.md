@@ -31,3 +31,23 @@ A true refusal (empty content, empty reasoning, finish "stop") stays UNPARSEABLE
 A starved response is flagged, not silently counted as a refusal. Per Rule 0 this
 does not retro-invalidate the 2026-07-16 frontier baseline (those models were not
 content-starved), but it is logged for full provenance.
+
+## 2026-07-16c — reasoning tier uses terse paraphrases; max_tokens 4096
+
+Smoke of the drain run showed the "work through it step by step" paraphrase (index 1)
+is pathological for reasoning models: they already reason in reasoning_content, and the
+explicit step-by-step instruction triggers exhaustive verbose trial division that blows
+even a 2048 budget and concludes nothing (content_starved). Meanwhile the terse prompt
+(index 0) elicits a clean, internally-reasoned content answer.
+
+Insight: the behavior-vs-capability *gap* (terse looks dumb, reasoning smart) is a
+property of NON-reasoning models — the exact 2023 GPT-4 situation. Reasoning models
+reason regardless of phrasing, so their terse answer already IS the reasoned answer.
+
+Changes for the open-weight reasoning tier:
+- Use paraphrases 0 and 2 (two terse phrasings) — prompt-sensitivity without the
+  step-by-step starvation. Paraphrase 1 is retained in the task file for the
+  non-reasoning/frontier context but skipped for this tier.
+- max_tokens 2048 -> 4096 (safety headroom).
+- Grader gains a reasoning_content fallback (source recorded), so a concluded answer
+  in reasoning is not lost, while a truncated no-conclusion reasoning stays UNPARSEABLE.
