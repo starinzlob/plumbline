@@ -16,12 +16,23 @@ scoring and do your own.
 It is a measuring instrument, not an accusation. If the models are fine, this
 repo will say so, at exactly the same volume.
 
+![behavior vs capability across 10 models, baseline 2026-07-16](assets/baseline_2026-07-16.svg)
+
+The gap between the two bars is the finding — and the trap. Ask gpt-5.4 or
+deepseek-v4-flash tersely and they read ~60–65%; let them reason and they're
+~97–98% capable. Score them the way the 2023 paper did (terse prompt, primes
+only) and they look broken. They aren't. **This is a baseline, not a drift
+claim** — one time point cannot show drift. See [RESULTS.md](RESULTS.md).
+
 ---
 
 ## The instrument checks itself first
 
-The 2023 paper was wrong, and it was wrong in two specific, avoidable ways. Before
-this benchmark measures anyone, it has to prove it doesn't repeat them.
+The 2023 study's design could not cleanly distinguish capability loss from two
+specific behavior and formatting changes. That does not prove its historical
+observations were false; it means the headline conclusion — *GPT-4 got worse* —
+was not identified by those tests. Before this benchmark measures anyone, it has
+to prove it doesn't repeat those confounds.
 
 `scripts/demo_2023_replay.py` builds a synthetic model whose true competence is
 **fixed in code** — by construction it cannot get dumber — and shifts only its
@@ -47,15 +58,18 @@ DRIFTLINE  (balanced task set, behavior vs capability split)
   degradation.
 ```
 
-The model never changed. The 2023 method reports an 84-point collapse that did not
-happen. Run it yourself: `python3 scripts/demo_2023_replay.py`.
+The model in this synthetic example never changed. This does not re-litigate the
+paper's exact historical runs; it demonstrates the narrower point that the same
+evaluation design can report an 84-point capability collapse even when capability
+is fixed. Run it yourself: `python3 scripts/demo_2023_replay.py`.
 
-## The two mistakes, and the rules they produced
+## The two confounds, and the rules they produced
 
 **1. The prime trap.** The 2023 paper asked "Is X prime?" 500 times. All 500 numbers
-were prime. A model drifting toward "no" looked like it had collapsed — you can see
-it above: `recall_positive` cratered 93→9 while `recall_negative` *rose* 91→99. They
-only measured the half that fell.
+were prime. A model drifting toward "no" could therefore look like it had lost the
+capability — you can see the failure mode above: `recall_positive` cratered 93→9
+while `recall_negative` *rose* 91→99. A prime-only task set cannot observe the half
+moving in the other direction.
 
 → Balanced positive/negative classes, always. **Balanced accuracy**, never raw. The
 model's **answer bias** is a first-class metric, because a prior shift is a real
@@ -63,7 +77,7 @@ finding — just a completely different one from "it got dumber."
 
 **2. The markdown trap.** The 2023 paper checked whether generated code was *directly
 executable*. GPT-4 had started wrapping code in fences to be helpful; the fences broke
-execution and scored as a coding collapse. It measured politeness.
+execution and could turn a formatting change into an apparent coding collapse.
 
 → Graders extract the answer, then judge its **semantics**. Code is pulled out of
 fences, executed against unit tests, judged on correctness. Formatting is tracked as
@@ -118,7 +132,7 @@ Please do.
 ## Run it
 
 ```bash
-python3 -m pytest tests/ -q          # 21 tests, incl. regressions against both 2023 bugs
+python3 -m pytest tests/ -q          # 21 tests, incl. regressions against both 2023 failure modes
 python3 scripts/gen_primality.py     # regenerate the frozen task set (seeded, byte-identical)
 python3 scripts/demo_2023_replay.py  # the self-check above
 ```
