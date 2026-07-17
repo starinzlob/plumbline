@@ -1,6 +1,0 @@
-
-=== deepseek-v4-pro ===
-  balance 174 < floor 300 — stopping cleanly
-
-raw responses saved under /Users/zhangxiabin/plumbline/runs/2026-07-16
-next: python3 scripts/report.py --date 2026-07-16

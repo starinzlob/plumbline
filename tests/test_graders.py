@@ -10,7 +10,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from plumbline.graders import (  # noqa: E402
+from driftline.graders import (  # noqa: E402
     Verdict,
     extract_boolean,
     extract_code,

@@ -13,8 +13,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from plumbline.graders import Verdict  # noqa: E402
-from plumbline.score import Sample, score_run  # noqa: E402
+from driftline.graders import Verdict  # noqa: E402
+from driftline.score import Sample, score_run  # noqa: E402
 
 REPO = Path(__file__).resolve().parents[1]
 
@@ -50,7 +50,7 @@ def main() -> None:
     report = {"date": args.date, "served_via": manifest.get("served_via"),
               "k_samples": k, "models": {}}
 
-    print(f"\n{'='*76}\nplumbline run {args.date}  —  served via {manifest.get('served_via')}")
+    print(f"\n{'='*76}\ndriftline run {args.date}  —  served via {manifest.get('served_via')}")
     print(f"k_samples={k}  paraphrases={manifest['paraphrases']}  "
           f"tasks={manifest['n_tasks']}")
     if k < 2:

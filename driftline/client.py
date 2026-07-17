@@ -42,7 +42,7 @@ def load_key() -> str:
             if line.startswith("FLUXA_API_KEY="):
                 return line.split("=", 1)[1].strip().strip('"').strip("'")
     raise RuntimeError(
-        "No FLUXA_API_KEY. Put it in the environment or in ~/plumbline/.env "
+        "No FLUXA_API_KEY. Put it in the environment or in ~/driftline/.env "
         "(which is gitignored). The key is never printed or committed."
     )
 

@@ -4,3 +4,4 @@ __pycache__/
 .venv/
 config.local.yaml
 .env
+runs/*.log

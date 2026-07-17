@@ -2,8 +2,8 @@
 
 **Title options (pick one — HN rewards precise over spicy):**
 
-1. `Show HN: Plumbline – a reproducible test for whether LLMs silently drift`
-2. `Show HN: Plumbline – I tried to settle "did they nerf the model" without the 2023 mistakes`
+1. `Show HN: Driftline – a reproducible test for whether LLMs silently drift`
+2. `Show HN: Driftline – I tried to settle "did they nerf the model" without the 2023 mistakes`
 3. `Show HN: A drift benchmark that commits every raw model response to git`
 
 Recommended: #1. It says what it is and makes no claim it can't back.
@@ -18,18 +18,18 @@ the rebuttal ("GPT-4 is not getting worse") hit 149. The rebuttal was right, and
 right for avoidable reasons. Three years later people still argue this with nothing but
 vibes, because nobody kept a record.
 
-Plumbline keeps the record. Same tasks, same graders, same prompts, on a schedule, with
+Driftline keeps the record. Same tasks, same graders, same prompts, on a schedule, with
 every raw response committed to git so you can throw out my scoring and redo it.
 
 It's built to not repeat the two mistakes that sank the 2023 paper:
 
 - That paper asked "Is X prime?" 500 times — all 500 were prime. A model drifting toward
-  "no" looked like collapse. Plumbline uses a balanced positive/negative set and reports
+  "no" looked like collapse. Driftline uses a balanced positive/negative set and reports
   balanced accuracy plus the model's answer bias as a first-class metric, because a prior
   shift is a real finding — just a completely different one from "it got dumber."
 - That paper scored code by whether the raw string was directly executable; when GPT-4
   started wrapping code in markdown fences to be helpful, the fences broke execution and
-  scored as a coding collapse. Plumbline extracts the answer, then grades its semantics.
+  scored as a coding collapse. Driftline extracts the answer, then grades its semantics.
   Formatting is tracked separately, never mixed into capability.
 
 There are no LLM judges anywhere — a judge that drifts can't measure drift, so every

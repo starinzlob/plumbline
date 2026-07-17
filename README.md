@@ -1,6 +1,6 @@
-# plumbline
+# driftline
 
-**A plumb line is a reference that doesn't move.**
+**Drift is invisible until you have a fixed line to measure it against.**
 
 Every few months, Hacker News has the same argument: *the model got worse. They
 nerfed it. They're burning my tokens on purpose.* In 2023 the argument ran to
@@ -34,7 +34,7 @@ THE 2023 METHOD  (prime-only task set, raw accuracy)
   after:    9.7%
   headline it would produce: 'accuracy collapsed by 84 points'
 
-PLUMBLINE  (balanced task set, behavior vs capability split)
+DRIFTLINE  (balanced task set, behavior vs capability split)
   behavior            92.2%  ->   53.9%
   capability         100.0%  ->  100.0%
   recall_positive     93.3%  ->    8.9%     <- all 2023 looked at

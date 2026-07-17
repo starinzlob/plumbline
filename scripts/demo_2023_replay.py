@@ -7,7 +7,7 @@ that fine-tuning does. Then we score it two ways:
   1. The 2023 method: ask only about primes, count raw accuracy.
   2. This repo's pre-registered method.
 
-If plumbline cannot tell these apart, it has no reason to exist, and the honest
+If driftline cannot tell these apart, it has no reason to exist, and the honest
 move is to delete it rather than ship another chart.
 
 Nothing here touches an API. It is a test of the *instrument*, using a synthetic
@@ -21,8 +21,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from plumbline.graders import Verdict  # noqa: E402
-from plumbline.score import Sample, interpret, score_run  # noqa: E402
+from driftline.graders import Verdict  # noqa: E402
+from driftline.score import Sample, interpret, score_run  # noqa: E402
 
 
 def simulate(n_tasks, rng, no_bias_terse, competence=0.95, only_primes=False):
@@ -87,13 +87,13 @@ def main():
           f"{(a23 - b23) * 100:.0f} points'")
     print()
 
-    # ---- plumbline's view -------------------------------------------------
+    # ---- driftline's view -------------------------------------------------
     before = simulate(N, rng, no_bias_terse=0.02, only_primes=False)
     after = simulate(N, rng, no_bias_terse=0.90, only_primes=False)
     sb, sa = score_run(before), score_run(after)
 
     print("=" * 72)
-    print("PLUMBLINE  (balanced task set, behavior vs capability split)")
+    print("DRIFTLINE  (balanced task set, behavior vs capability split)")
     print("=" * 72)
     for k in ("behavior", "capability", "recall_positive", "recall_negative"):
         f, t = sb[k], sa[k]
@@ -118,7 +118,7 @@ def main():
     print()
     print(f"  The 2023 method reports a {(a23 - b23) * 100:.0f}-point capability")
     print("  collapse that did not happen.")
-    print(f"  Plumbline reports capability {sb['capability']['value']:.1%} ->"
+    print(f"  Driftline reports capability {sb['capability']['value']:.1%} ->"
           f" {sa['capability']['value']:.1%}, and names the real cause.")
 
     # This is the assertion the whole repo stands on.

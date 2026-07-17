@@ -10,7 +10,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from plumbline.client import call, load_key  # noqa: E402
+from driftline.client import call, load_key  # noqa: E402
 
 ENDPOINT = "https://proxy-monetize.fluxapay.xyz/llm/unify-llm/v1/chat/completions"
 

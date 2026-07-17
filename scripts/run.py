@@ -23,8 +23,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import yaml  # noqa: E402
 
-from plumbline.client import call, load_key  # noqa: E402
-from plumbline.graders import Verdict, grade_primality  # noqa: E402
+from driftline.client import call, load_key  # noqa: E402
+from driftline.graders import Verdict, grade_primality  # noqa: E402
 
 REPO = Path(__file__).resolve().parents[1]
 

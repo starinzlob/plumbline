@@ -17,7 +17,7 @@ completely avoidable.
 
 I wanted to build the thing that should have existed then: an instrument that measures
 this properly, keeps a permanent record, and can't repeat those mistakes. It's called
-plumbline — a plumb line is a reference that doesn't move.
+driftline: drift stays invisible until you have a fixed line to measure it against.
 
 This is a writeup of what it is, what it found on day one, and — because this is the
 whole point — everything it still gets wrong.
@@ -50,7 +50,7 @@ raw string happened to run. Track formatting changes as their own separate metri
 
 **No LLM judges. Ever.** If you grade a drift benchmark with a model, that judge drifts
 too, and you can no longer attribute a moving number to the thing you're measuring. Every
-grader in plumbline is deterministic code with unit tests — two of which are regressions
+grader in driftline is deterministic code with unit tests — two of which are regressions
 against the exact 2023 bugs, so the instrument has to prove it doesn't repeat them before
 it measures anyone. The cost is a narrower benchmark: anything that can't be graded by
 deterministic code (essay quality, "helpfulness," style) doesn't go in. I'll take a
@@ -68,7 +68,7 @@ The deepest of the three ideas: fine-tuning changes how a model responds to a sp
 prompt, which is not the same as the model losing an ability. A capability that hides
 behind one phrasing and reappears behind another has drifted in behavior, not degraded.
 
-So plumbline reports two numbers, always together:
+So driftline reports two numbers, always together:
 
 - **behavior** — accuracy on the single terse prompt you actually type every day.
 - **capability** — best-of-N across several frozen paraphrases.
@@ -119,7 +119,7 @@ An honest instrument leads with its spec sheet.
 ## The conflict of interest
 
 This project was largely written by Claude — Anthropic's model — at my direction.
-Anthropic is one of the vendors plumbline measures. That is a real conflict, and no
+Anthropic is one of the vendors driftline measures. That is a real conflict, and no
 promise from me fixes it.
 
 The mitigations are structural, not verbal. The method is pre-registered before any data
