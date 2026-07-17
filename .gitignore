@@ -5,3 +5,4 @@ __pycache__/
 config.local.yaml
 .env
 runs/*.log
+publish/
