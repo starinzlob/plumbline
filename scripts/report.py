@@ -85,7 +85,7 @@ def main() -> None:
         print(f"\n{alias}")
         print(f"  snapshot returned : {snapshots[alias] or '(echoed alias — no snapshot exposed)'}")
         print(f"  behavior (terse)  : {beh:.1%}")
-        print(f"  capability (bestN): {cap:.1%}")
+        print(f"  capability (best phr): {cap:.1%}")
         if ba is not None:
             print(f"  balanced accuracy : {ba:.1%}   (recall+ {rp:.1%} / recall- {rn:.1%})")
             print(f"  answer bias (yes) : {bias:.1%}   (ground truth 50.0%)")

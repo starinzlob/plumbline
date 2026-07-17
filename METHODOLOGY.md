@@ -172,16 +172,15 @@ Found by running `scripts/demo_2023_replay.py` against a synthetic model whose t
 competence we fixed by construction. Listed here rather than in an issue tracker,
 because a measurement instrument's spec sheet should lead with what it gets wrong.
 
-- **`capability` saturates.** Best-of-N over 3 paraphrases × k samples is
-  `1 - (1-p)^(3k)`, which pins to 1.0 for any competent model: at p=0.95 and k=3, it
-  is 99.99%. A saturated metric cannot detect the very degradation it exists to
-  detect — it will read 100% right up until the model falls off a cliff. Until this
-  is fixed, `capability` is only trustworthy as evidence **against** degradation (a
-  held capability is real), and is close to worthless as evidence **for** it.
-  Candidate fixes under consideration: report per-paraphrase accuracy curves
-  instead of a max; use harder tasks so p sits nearer 0.5 where the metric has
-  resolution; report capability at fixed k with its own CI. Not yet chosen, so
-  not yet claimed.
+- **`capability` saturated — FIXED 2026-07-16d.** The original best-of-N definition
+  (`1 - (1-p)^(paraphrases·k)`) pinned to 1.0 for any competent model and could not
+  detect the degradation it exists to detect. It now scores each task by its **best
+  paraphrase's mean accuracy over the k samples** — a lucky single sample gives 1/k,
+  not 1.0 — so the metric has real resolution below 100% (see CHANGELOG-METHOD
+  2026-07-16d). Residual limit: at **k=1** there is no per-sample reliability to
+  average, so the frontier tier's capability still behaves like the old max; only
+  k≥2 runs get the benefit. The deprecated metric is kept as
+  `capability_anyN_deprecated` for continuity with the pre-fix series.
 - **Three paraphrases is not "any phrasing."** Rule 3's `capability` says only that
   the ability survives *the three phrasings we froze in advance*. A capability that
   needs a fourth is invisible to us and will be misreported as lost. The paraphrase

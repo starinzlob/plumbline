@@ -66,4 +66,4 @@ Disclosure: this was largely written by Claude (Anthropic) — one of the vendor
 measures. Real conflict. Mitigation is structural: pre-registered method, deterministic
 graders, all raw responses in git so you can re-score without me.
 
-Repo + full method: [link]
+Repo + full method: https://github.com/starinzlob/driftline

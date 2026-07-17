@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 602" font-family="-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif">
+<rect width="920" height="602" fill="#ffffff"/>
+<text x="40" y="34" font-size="21" font-weight="600" fill="#1a1a1a">driftline — behavior vs capability</text>
+<text x="40" y="56" font-size="13" fill="#6b6b64">baseline 2026-07-16 · 30 balanced primality tasks · served via Unify/FluxA proxy</text>
+<rect x="560" y="24" width="11" height="11" rx="2" fill="#8a8a82"/>
+<text x="577" y="34" font-size="12" fill="#6b6b64">behavior (terse prompt)</text>
+<rect x="745" y="24" width="11" height="11" rx="2" fill="#2a78d6"/>
+<text x="762" y="34" font-size="12" fill="#6b6b64">capability (best phrasing)</text>
+<line x1="265.0" y1="66" x2="265.0" y2="530" stroke="#e4e3dc" stroke-width="1"/>
+<text x="265.0" y="552" font-size="11" fill="#6b6b64" text-anchor="middle">0%</text>
+<line x1="418.8" y1="66" x2="418.8" y2="530" stroke="#e4e3dc" stroke-width="1"/>
+<text x="418.8" y="552" font-size="11" fill="#6b6b64" text-anchor="middle">25%</text>
+<line x1="572.5" y1="66" x2="572.5" y2="530" stroke="#e4e3dc" stroke-width="1"/>
+<text x="572.5" y="552" font-size="11" fill="#6b6b64" text-anchor="middle">50%</text>
+<line x1="726.2" y1="66" x2="726.2" y2="530" stroke="#e4e3dc" stroke-width="1"/>
+<text x="726.2" y="552" font-size="11" fill="#6b6b64" text-anchor="middle">75%</text>
+<line x1="880.0" y1="66" x2="880.0" y2="530" stroke="#e4e3dc" stroke-width="1"/>
+<text x="880.0" y="552" font-size="11" fill="#6b6b64" text-anchor="middle">100%</text>
+<text x="250" y="105.0" font-size="13" fill="#1a1a1a" text-anchor="end">openai/gpt-5.5</text>
+<rect x="265" y="85.0" width="594.5" height="14" rx="3" fill="#8a8a82"/>
+<rect x="265" y="103.0" width="615.0" height="14" rx="3" fill="#2a78d6"/>
+<text x="865.5" y="96.0" font-size="11" fill="#6b6b64">97%</text>
+<text x="886.0" y="114.0" font-size="11" fill="#6b6b64">100%</text>
+<text x="250" y="151.0" font-size="13" fill="#1a1a1a" text-anchor="end">deepseek-v3.2</text>
+<rect x="265" y="131.0" width="536.6" height="14" rx="3" fill="#8a8a82"/>
+<rect x="265" y="149.0" width="541.2" height="14" rx="3" fill="#2a78d6"/>
+<text x="807.6" y="142.0" font-size="11" fill="#6b6b64">87%</text>
+<text x="812.2" y="160.0" font-size="11" fill="#6b6b64">88%</text>
+<text x="250" y="197.0" font-size="13" fill="#1a1a1a" text-anchor="end">anthropic/claude-opus-4.6</text>
+<rect x="265" y="177.0" width="533.0" height="14" rx="3" fill="#8a8a82"/>
+<rect x="265" y="195.0" width="553.5" height="14" rx="3" fill="#2a78d6"/>
+<text x="804.0" y="188.0" font-size="11" fill="#6b6b64">87%</text>
+<text x="824.5" y="206.0" font-size="11" fill="#6b6b64">90%</text>
+<text x="250" y="243.0" font-size="13" fill="#1a1a1a" text-anchor="end">deepseek-v4-pro</text>
+<rect x="265" y="223.0" width="528.7" height="14" rx="3" fill="#8a8a82"/>
+<rect x="265" y="241.0" width="577.2" height="14" rx="3" fill="#2a78d6"/>
+<text x="799.7" y="234.0" font-size="11" fill="#6b6b64">86%</text>
+<text x="848.2" y="252.0" font-size="11" fill="#6b6b64">94%</text>
+<text x="250" y="289.0" font-size="13" fill="#1a1a1a" text-anchor="end">deepseek-v3.2-think</text>
+<rect x="265" y="269.0" width="523.9" height="14" rx="3" fill="#8a8a82"/>
+<rect x="265" y="287.0" width="567.9" height="14" rx="3" fill="#2a78d6"/>
+<text x="794.9" y="280.0" font-size="11" fill="#6b6b64">85%</text>
+<text x="838.9" y="298.0" font-size="11" fill="#6b6b64">92%</text>
+<text x="250" y="335.0" font-size="13" fill="#1a1a1a" text-anchor="end">google/gemini-3.5-flash</text>
+<rect x="265" y="315.0" width="471.5" height="14" rx="3" fill="#8a8a82"/>
+<rect x="265" y="333.0" width="533.0" height="14" rx="3" fill="#2a78d6"/>
+<text x="742.5" y="326.0" font-size="11" fill="#6b6b64">77%</text>
+<text x="804.0" y="344.0" font-size="11" fill="#6b6b64">87%</text>
+<text x="250" y="381.0" font-size="13" fill="#1a1a1a" text-anchor="end">anthropic/claude-sonnet-4.6</text>
+<rect x="265" y="361.0" width="410.0" height="14" rx="3" fill="#8a8a82"/>
+<rect x="265" y="379.0" width="553.5" height="14" rx="3" fill="#2a78d6"/>
+<text x="681.0" y="372.0" font-size="11" fill="#6b6b64">67%</text>
+<text x="824.5" y="390.0" font-size="11" fill="#6b6b64">90%</text>
+<text x="250" y="427.0" font-size="13" fill="#1a1a1a" text-anchor="end">deepseek-v4-flash</text>
+<rect x="265" y="407.0" width="401.8" height="14" rx="3" fill="#8a8a82"/>
+<rect x="265" y="425.0" width="602.7" height="14" rx="3" fill="#2a78d6"/>
+<text x="672.8" y="418.0" font-size="11" fill="#6b6b64">65%</text>
+<text x="873.7" y="436.0" font-size="11" fill="#6b6b64">98%</text>
+<text x="250" y="473.0" font-size="13" fill="#1a1a1a" text-anchor="end">openai/gpt-5.4</text>
+<rect x="265" y="453.0" width="369.0" height="14" rx="3" fill="#8a8a82"/>
+<rect x="265" y="471.0" width="594.5" height="14" rx="3" fill="#2a78d6"/>
+<text x="640.0" y="464.0" font-size="11" fill="#6b6b64">60%</text>
+<text x="865.5" y="482.0" font-size="11" fill="#6b6b64">97%</text>
+<text x="250" y="519.0" font-size="13" fill="#1a1a1a" text-anchor="end">google/gemini-3.1-pro-preview</text>
+<rect x="265" y="499.0" width="348.5" height="14" rx="3" fill="#8a8a82"/>
+<rect x="265" y="517.0" width="451.0" height="14" rx="3" fill="#2a78d6"/>
+<text x="619.5" y="510.0" font-size="11" fill="#6b6b64">57%</text>
+<text x="722.0" y="528.0" font-size="11" fill="#6b6b64">73%</text>
+<text x="40" y="586" font-size="11" fill="#6b6b64">k=1 for the frontier tier (no CIs); k=3–5 for the deepseek tier. A baseline — not a drift claim.</text>
+</svg>

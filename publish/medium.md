@@ -133,4 +133,4 @@ built it. Please go check.
 
 ---
 
-*Repo and full pre-registered methodology: [link]*
+*Repo and full pre-registered methodology: https://github.com/starinzlob/driftline*

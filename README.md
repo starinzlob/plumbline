@@ -97,11 +97,12 @@ Full pre-registered method, including **the defects we already know about**:
 
 ## Status
 
-Early. The instrument and its self-check work; it has not yet been pointed at a live
-API. Currently 30 primality tasks (balanced, seeded, frozen) and an executed-code
-grader. See METHODOLOGY.md § "Known defects in this instrument" for what's honestly
-broken — `capability` saturates and can't yet detect the degradation it exists to
-detect.
+First baseline collected: **10 models, 2026-07-16** — see [RESULTS.md](RESULTS.md)
+and the chart in `assets/`. 30 primality tasks (balanced, seeded, frozen), an
+executed-code grader, bootstrap CIs on the k≥2 tier. Still one time point, so no
+drift claims yet — that needs a second run. See METHODOLOGY.md § "Known defects" for
+what's honestly limited (notably: the frontier tier is k=1, and coverage this run is
+deepseek-only on the open-weight side due to upstream outages).
 
 ## Conflict of interest
 

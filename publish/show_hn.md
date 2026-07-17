@@ -56,4 +56,4 @@ whole history without my cooperation. Please do.
 Known limits are in the repo, including one I already know is broken (the capability
 metric saturates and can't yet detect the degradation it exists to detect).
 
-Repo: [link]
+Repo: https://github.com/starinzlob/driftline

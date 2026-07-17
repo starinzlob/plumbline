@@ -51,3 +51,17 @@ Changes for the open-weight reasoning tier:
 - max_tokens 2048 -> 4096 (safety headroom).
 - Grader gains a reasoning_content fallback (source recorded), so a concluded answer
   in reasoning is not lost, while a truncated no-conclusion reasoning stays UNPARSEABLE.
+
+## 2026-07-16d — capability metric de-saturated
+
+The known defect (capability saturates under best-of-N) is fixed. Old definition:
+"correct on any paraphrase, on any sample" → pinned to 1.0 for any competent model,
+so it could not detect degradation. New definition: for each task, take the best
+paraphrase and score it by its MEAN accuracy over the k samples (a lucky single
+sample gives 1/k, not 1.0); capability = mean of that across tasks, bootstrap CI.
+
+Effect on the 2026-07-16 baseline (k=5 deepseek tier, where the fix has resolution):
+deepseek-v3.2 100→88.0, v3.2-think 100→92.3, v4-flash 100→98.0, v4-pro 100→93.9.
+Frontier tier is k=1 so its capability is unchanged (no per-sample reliability to
+average). The old metric is retained as capability_anyN_deprecated for continuity.
+Per Rule 0 this re-scores all history from raw responses; no data was recollected.

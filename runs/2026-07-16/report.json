@@ -17,6 +17,12 @@
           "hi": 1.0,
           "n": 30
         },
+        "capability_anyN_deprecated": {
+          "value": 0.9,
+          "lo": 0.7666666666666667,
+          "hi": 1.0,
+          "n": 30
+        },
         "recall_positive": {
           "value": 1.0,
           "lo": 1.0,
@@ -79,6 +85,12 @@
           "hi": 1.0,
           "n": 30
         },
+        "capability_anyN_deprecated": {
+          "value": 0.9,
+          "lo": 0.7666666666666667,
+          "hi": 1.0,
+          "n": 30
+        },
         "recall_positive": {
           "value": 1.0,
           "lo": 1.0,
@@ -136,6 +148,12 @@
           "n": 149
         },
         "capability": {
+          "value": 0.88,
+          "lo": 0.8,
+          "hi": 0.9466666666666667,
+          "n": 30
+        },
+        "capability_anyN_deprecated": {
           "value": 1.0,
           "lo": 1.0,
           "hi": 1.0,
@@ -198,6 +216,12 @@
           "n": 108
         },
         "capability": {
+          "value": 0.9233333333333333,
+          "lo": 0.8633333333333333,
+          "hi": 0.9733333333333333,
+          "n": 30
+        },
+        "capability_anyN_deprecated": {
           "value": 1.0,
           "lo": 1.0,
           "hi": 1.0,
@@ -260,6 +284,12 @@
           "n": 150
         },
         "capability": {
+          "value": 0.98,
+          "lo": 0.9533333333333334,
+          "hi": 1.0,
+          "n": 30
+        },
+        "capability_anyN_deprecated": {
           "value": 1.0,
           "lo": 1.0,
           "hi": 1.0,
@@ -322,6 +352,12 @@
           "n": 57
         },
         "capability": {
+          "value": 0.9385964912280701,
+          "lo": 0.868421052631579,
+          "hi": 1.0,
+          "n": 19
+        },
+        "capability_anyN_deprecated": {
           "value": 1.0,
           "lo": 1.0,
           "hi": 1.0,
@@ -389,6 +425,12 @@
           "hi": 0.9,
           "n": 30
         },
+        "capability_anyN_deprecated": {
+          "value": 0.7333333333333333,
+          "lo": 0.5666666666666667,
+          "hi": 0.9,
+          "n": 30
+        },
         "recall_positive": {
           "value": 0.6666666666666666,
           "lo": 0.4,
@@ -446,6 +488,12 @@
           "n": 30
         },
         "capability": {
+          "value": 0.8666666666666667,
+          "lo": 0.7333333333333333,
+          "hi": 0.9666666666666667,
+          "n": 30
+        },
+        "capability_anyN_deprecated": {
           "value": 0.8666666666666667,
           "lo": 0.7333333333333333,
           "hi": 0.9666666666666667,
@@ -513,6 +561,12 @@
           "hi": 1.0,
           "n": 30
         },
+        "capability_anyN_deprecated": {
+          "value": 0.9666666666666667,
+          "lo": 0.9,
+          "hi": 1.0,
+          "n": 30
+        },
         "recall_positive": {
           "value": 0.4,
           "lo": 0.13333333333333333,
@@ -570,6 +624,12 @@
           "n": 30
         },
         "capability": {
+          "value": 1.0,
+          "lo": 1.0,
+          "hi": 1.0,
+          "n": 30
+        },
+        "capability_anyN_deprecated": {
           "value": 1.0,
           "lo": 1.0,
           "hi": 1.0,

@@ -89,15 +89,42 @@ def score_run(samples: list[Sample], seed: int = 0) -> dict:
     # --- behavior: canonical prompt only ------------------------------------
     out["behavior"] = bootstrap([1.0 if _correct(s) else 0.0 for s in canonical], seed=seed).as_dict()
 
-    # --- capability: best-of-N across paraphrases ---------------------------
-    # A task counts as within-capability if ANY frozen paraphrase, on ANY
-    # sample, produced a correct answer. Rule 3: a capability that hides behind
-    # one phrasing and appears behind another has drifted, not degraded.
+    # --- capability: best phrasing's *reliability* --------------------------
+    # Rule 3: a capability that hides behind one phrasing and appears behind
+    # another has drifted, not degraded.
+    #
+    # The original definition — "correct on ANY paraphrase, on ANY sample" —
+    # saturated: best-of-(paraphrases x k) pins to 1.0 for any competent model
+    # (at p=0.95, k=5, 2 paraphrases it's 99.99%), so it could not detect the
+    # degradation it exists to detect (METHODOLOGY.md § Known defects, now fixed
+    # here — see CHANGELOG-METHOD 2026-07-16d).
+    #
+    # Fixed definition: for each task, take the model's BEST paraphrase, and
+    # score that paraphrase by its MEAN accuracy over the k samples — not whether
+    # one lucky sample hit. A single fluke gives 1/k, not 1.0, so the metric has
+    # real resolution below 100%. Capability is the mean of that over tasks, with
+    # a bootstrap CI across tasks.
+    by_task_para: dict[tuple, list[Sample]] = defaultdict(list)
+    for s in samples:
+        by_task_para[(s.task_id, s.paraphrase)].append(s)
+    task_ids = sorted({tid for (tid, _p) in by_task_para})
+    per_task_cap = []
+    for tid in task_ids:
+        para_means = [
+            sum(1.0 if _correct(x) else 0.0 for x in v) / len(v)
+            for (t, _p), v in by_task_para.items() if t == tid and v
+        ]
+        if para_means:
+            per_task_cap.append(max(para_means))
+    out["capability"] = bootstrap(per_task_cap, seed=seed).as_dict()
+
+    # Kept for transparency and continuity with the pre-2026-07-16d series: the
+    # old saturating any-of-N metric, clearly labelled as deprecated.
     by_task: dict[str, list[Sample]] = defaultdict(list)
     for s in samples:
         by_task[s.task_id].append(s)
-    cap = [1.0 if any(_correct(x) for x in v) else 0.0 for v in by_task.values()]
-    out["capability"] = bootstrap(cap, seed=seed).as_dict()
+    anyN = [1.0 if any(_correct(x) for x in v) else 0.0 for v in by_task.values()]
+    out["capability_anyN_deprecated"] = bootstrap(anyN, seed=seed).as_dict()
 
     # --- balanced accuracy (Rule 1) -----------------------------------------
     # THE fix for the 2023 prime trap. Raw accuracy over an unbalanced set lets
